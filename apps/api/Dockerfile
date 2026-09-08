@@ -1,6 +1,9 @@
 FROM node:20-alpine
 WORKDIR /app
 
+# Устанавливаем системный OpenSSL для работы движка Prisma в Alpine
+RUN apk add --no-cache openssl libc6-compat
+
 RUN corepack enable
 
 COPY package.json yarn.lock .yarnrc.yml ./
