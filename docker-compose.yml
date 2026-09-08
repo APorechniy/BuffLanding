@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # 1. Fastify Backend API
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: always
+    env_file:
+      - .env
+    environment:
+      # Переопределяем путь к БД внутри докер-контейнера для сохранения данных
+      - DATABASE_URL=file:/app/data/dev.db
+    volumes:
+      - sqlite_data:/app/data
+
+  # 2. Vite React SPA Frontend
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: always
+
+  # 3. NGINX Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+      - web
+
+volumes:
+  sqlite_data:

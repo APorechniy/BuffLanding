@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId     BigInt    @id
+  clientUuid String?   @unique
+  subId      String    @unique
+  status     String    @default("new")
+  expiresAt  DateTime?
+  trialUsed  Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+}
+
+model Payment {
+  orderId   String   @id
+  userId    BigInt
+  amount    Float
+  tariffId  String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,18 @@
+{
+    "name": "vpn-monorepo",
+    "private": true,
+    "packageManager": "yarn@4.1.1+sha512.ec40d0639bb307441b945d9467139cbb88d14394baac760b52eca038b330d16542d66fef61574271534ace5a200518dabf3b53a85f1f9e4bfa37141b538a9590",
+    "workspaces": [
+        "apps/*"
+    ],
+    "scripts": {
+        "dev": "concurrently \"yarn dev:api\" \"yarn dev:web\"",
+        "dev:api": "yarn workspace api dev",
+        "dev:web": "yarn workspace web dev",
+        "build": "yarn workspaces foreach -A run build",
+        "db:push": "yarn workspace api db:push"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
