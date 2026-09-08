@@ -13,7 +13,7 @@ export async function paymentRoutes(app: FastifyInstance) {
 
         // Проверка HMAC подписи
         const expectedSig = crypto
-            .createHmac('sha256', env.PAYMENT_SECRET_KEY)
+            .createHmac('sha256', env.PAYMENT_API_KEY)
             .update(bodyText)
             .digest('hex');
 
