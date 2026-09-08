@@ -10,6 +10,7 @@ services:
     env_file:
       - .env
     environment:
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
       # Переопределяем путь к БД внутри докер-контейнера для сохранения данных
       - DATABASE_URL=file:/app/data/dev.db
     volumes:
