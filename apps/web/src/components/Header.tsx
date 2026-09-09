@@ -1,5 +1,5 @@
 import { data } from "../content/data";
-import logoImg from "../assets/logo.png";
+import logo from '../assets/logo.png';
 
 type Props = {
     onOpenTrial: () => void
@@ -11,7 +11,7 @@ const Header: React.FC<Props> = ({ onOpenTrial }) => {
             <div className="container header-inner">
                 <a href="#" className="logo-wrapper">
                     <img
-                        src={logoImg}
+                        src={logo}
                         alt={data.brand.name}
                         className="logo-img"
                         onError={(e) => { e.currentTarget.style.display = 'none'; }}
