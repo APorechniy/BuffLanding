@@ -15,6 +15,7 @@ RUN yarn install
 COPY apps/api ./apps/api
 WORKDIR /app/apps/api
 
+RUN yarn prisma migrate deploy
 RUN yarn prisma generate
 
 EXPOSE 3000
