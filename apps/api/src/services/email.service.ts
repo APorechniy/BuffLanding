@@ -27,7 +27,7 @@ export class EmailService {
         const transporter = this.smtpConfig;
 
         const payload = {
-            from: "Buff Manager",
+            from: `Buff Manager | <${this.smtpUser}>`,
             to: params.clientEmail,
             subject: "BUFF | Доступ к сервису",
             text: `Ваша ссылка: ${params.sublink}`,
