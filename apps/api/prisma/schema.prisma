@@ -9,8 +9,8 @@ datasource db {
 }
 
 model User {
-  userId     BigInt    @id
-  clientUuid String?   @unique
+  userId     String    @id
+  email      String    @unique
   subId      String    @unique
   status     String    @default("new")
   expiresAt  DateTime?

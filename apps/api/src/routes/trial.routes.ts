@@ -10,10 +10,10 @@ export async function trialRoutes(app: FastifyInstance) {
             return reply.code(403).send({ error: 'Forbidden' });
         }
 
-        const schema = z.object({ userId: z.number() });
-        const { userId } = schema.parse(request.body);
+        const schema = z.object({ email: z.string() });
+        const { email } = schema.parse(request.body);
 
-        const result = await vpnService.activateTrial(BigInt(userId));
+        const result = await vpnService.activateTrial(email);
         if (!result.success) {
             return reply.code(400).send({ error: result.message });
         }

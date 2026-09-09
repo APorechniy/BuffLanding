@@ -13,6 +13,7 @@
         "db:push": "yarn workspace api db:push"
     },
     "devDependencies": {
+        "@rolldown/pluginutils": "^1.0.1",
         "concurrently": "^8.2.2"
     }
 }

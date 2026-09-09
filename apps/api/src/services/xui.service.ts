@@ -11,10 +11,9 @@ export class XuiService {
     }
 
     async addClient(params: {
+        userId: string,
         email: string;
-        clientUuid: string;
         subId: string;
-        tgId: number;
         expiryTimeMs: number;
         totalGbLimit?: number;
     }): Promise<boolean> {
@@ -22,14 +21,13 @@ export class XuiService {
 
         const payload = {
             client: {
-                id: params.clientUuid,
+                id: params.userId,
                 alterId: 0,
                 email: params.email,
                 limitIp: 2,
                 totalGB: totalBytes,
                 expiryTime: params.expiryTimeMs,
                 enable: true,
-                tgId: params.tgId,
                 subId: params.subId,
                 flow: 'xtls-rprx-vision',
             },
@@ -53,22 +51,20 @@ export class XuiService {
     }
 
     async updateClientStatus(params: {
+        userId: string;
         email: string;
-        clientUuid: string;
         subId: string;
-        tgId: number;
         enable: boolean;
         expiryTimeMs: number;
     }): Promise<boolean> {
         const payload = {
-            id: params.clientUuid,
+            id: params.userId,
             alterId: 0,
             email: params.email,
             limitIp: 2,
             totalGB: 100 * 1024 * 1024 * 1024,
             expiryTime: params.expiryTimeMs,
             enable: params.enable,
-            tgId: params.tgId,
             subId: params.subId,
             flow: 'xtls-rprx-vision',
             inboundIds: [...env.XUI_INBOUND_IDS],

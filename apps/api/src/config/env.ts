@@ -7,7 +7,6 @@ const envSchema = z.object({
     PORT: z.string().transform(Number).default('3000'),
     DATABASE_URL: z.string(),
 
-    // Преобразуем строку "True" / "true" в boolean
     PAYMENT_ENABLED: z
         .string()
         .transform((val) => val.toLowerCase() === 'true')
@@ -15,12 +14,16 @@ const envSchema = z.object({
 
     INTERNAL_API_SECRET: z.string(),
 
+    // SMTP Config
+    SMTP_HOST: z.string(),
+    SMTP_PORT: z.string().transform(Number).default('465'),
+    SMTP_USER: z.string(),
+    SMTP_PASS: z.string(),
+
     // 3X-UI Panel Config
     XUI_URL: z.string().url(),
     XUI_TOKEN: z.string(),
     XUI_SUB_BASE_URL: z.string().url(),
-
-    // Преобразуем "6,7,8,9" в [6, 7, 8, 9]
     XUI_INBOUND_IDS: z
         .string()
         .default('1')

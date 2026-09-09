@@ -2,16 +2,16 @@ import { PrismaClient } from '@prisma/client';
 import crypto from 'node:crypto';
 import { env } from '../config/env.js';
 import { xuiService } from './xui.service.js';
+import { emailService } from './email.service.js';
 
 const prisma = new PrismaClient();
 
 export class VpnService {
-    async grantVpnAccess(userId: bigint, days: number, totalGb = 100): Promise<string> {
-        let user = await prisma.user.findUnique({ where: { userId } });
+    async grantVpnAccess(email: string, days: number, totalGb = 100): Promise<string> {
+        let user = await prisma.user.findUnique({ where: { email } });
 
-        const clientUuid = user?.clientUuid || crypto.randomUUID();
+        const userId = user?.userId || crypto.randomUUID();
         const subId = user?.subId || crypto.randomBytes(8).toString('hex');
-        const email = `tg_${userId}`;
 
         const now = new Date();
         const baseTime = (user?.expiresAt && user.expiresAt > now) ? user.expiresAt : now;
@@ -20,20 +20,18 @@ export class VpnService {
 
         // 1. Добавляем или обновляем в 3X-UI
         let success = await xuiService.addClient({
+            userId,
             email,
-            clientUuid,
             subId,
-            tgId: Number(userId),
             expiryTimeMs: expiryMs,
             totalGbLimit: totalGb,
         });
 
         if (!success) {
             success = await xuiService.updateClientStatus({
+                userId,
                 email,
-                clientUuid,
                 subId,
-                tgId: Number(userId),
                 enable: true,
                 expiryTimeMs: expiryMs,
             });
@@ -43,26 +41,31 @@ export class VpnService {
         // 2. Обновляем локальную БД
         await prisma.user.upsert({
             where: { userId },
-            update: { clientUuid, subId, status: 'active', expiresAt },
-            create: { userId, clientUuid, subId, status: 'active', expiresAt },
+            update: { subId, status: 'active', expiresAt },
+            create: { userId, email, subId, status: 'active', expiresAt },
         });
 
         return `${env.XUI_SUB_BASE_URL.replace(/\/$/, '')}/buff-subscribe/${subId}`;
     }
 
-    async activateTrial(userId: bigint): Promise<{ success: boolean; subUrl?: string; message?: string }> {
-        const user = await prisma.user.findUnique({ where: { userId } });
+    async activateTrial(email: string): Promise<{ success: boolean; subUrl?: string; message?: string }> {
+        const user = await prisma.user.findUnique({ where: { email } });
 
         if (user?.trialUsed) {
             return { success: false, message: 'Пробный период уже был использован.' };
         }
 
-        const subUrl = await this.grantVpnAccess(userId, 1, 10);
+        const subUrl = await this.grantVpnAccess(email, 1, 10);
 
         await prisma.user.update({
-            where: { userId },
+            where: { email },
             data: { trialUsed: true },
         });
+
+        await emailService.sendSubscribe({
+            clientEmail: email,
+            sublink: subUrl
+        })
 
         return { success: true, subUrl };
     }
