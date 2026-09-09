@@ -18,7 +18,7 @@ export function initScheduler() {
         });
 
         for (const user of expiredUsers) {
-            if (!user.clientUuid) continue;
+            if (!user.userId) continue;
 
             try {
                 await prisma.user.update({
@@ -27,10 +27,9 @@ export function initScheduler() {
                 });
 
                 await xuiService.updateClientStatus({
-                    email: `tg_${user.userId}`,
-                    clientUuid: user.clientUuid,
+                    userId: user.userId,
+                    email: user.email,
                     subId: user.subId,
-                    tgId: Number(user.userId),
                     enable: false,
                     expiryTimeMs: user.expiresAt?.getTime() || 0,
                 });
