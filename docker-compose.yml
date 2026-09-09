@@ -11,7 +11,7 @@ services:
       - .env
     environment:
       - NODE_TLS_REJECT_UNAUTHORIZED=0
-      # Переопределяем путь к БД внутри докер-контейнера для сохранения данных
+      # База лежит в примонтированном томе
       - DATABASE_URL=file:/app/data/dev.db
     volumes:
       - sqlite_data:/app/data

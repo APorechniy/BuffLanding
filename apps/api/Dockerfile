@@ -1,7 +1,6 @@
 FROM node:20-alpine
 WORKDIR /app
 
-# Устанавливаем системный OpenSSL для работы движка Prisma в Alpine
 RUN apk add --no-cache openssl libc6-compat
 
 RUN corepack enable
@@ -15,9 +14,7 @@ RUN yarn install
 COPY apps/api ./apps/api
 WORKDIR /app/apps/api
 
-RUN yarn prisma migrate deploy
 RUN yarn prisma generate
 
 EXPOSE 3000
-
-CMD ["yarn", "start"]
+CMD ["sh", "-c", "yarn prisma db push --accept-data-loss && yarn start"]
