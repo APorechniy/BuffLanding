@@ -7,6 +7,9 @@
         "paths": {
             "@/*": [
                 "src/*"
+            ],
+            "@buffvpn/shared": [
+                "../../apps/shared/src/index.ts"
             ]
         },
         "outDir": "./dist",

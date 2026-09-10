@@ -64,7 +64,8 @@ export class VpnService {
 
         await emailService.sendSubscribe({
             clientEmail: email,
-            sublink: subUrl
+            sublink: subUrl,
+            mode: "TRIAL"
         })
 
         return { success: true, subUrl };

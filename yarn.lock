@@ -216,6 +216,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@buffvpn/shared@workspace:*, @buffvpn/shared@workspace:apps/shared":
+  version: 0.0.0-use.local
+  resolution: "@buffvpn/shared@workspace:apps/shared"
+  dependencies:
+    typescript: "npm:^5.3.3"
+  languageName: unknown
+  linkType: soft
+
 "@esbuild/aix-ppc64@npm:0.21.5":
   version: 0.21.5
   resolution: "@esbuild/aix-ppc64@npm:0.21.5"
@@ -1136,6 +1144,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "api@workspace:apps/api"
   dependencies:
+    "@buffvpn/shared": "workspace:*"
     "@fastify/cors": "npm:^9.0.1"
     "@prisma/client": "npm:^5.22.0"
     "@types/node": "npm:^20.11.20"
@@ -2819,6 +2828,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:apps/web"
   dependencies:
+    "@buffvpn/shared": "workspace:*"
     "@types/node": "npm:^20.11.20"
     "@types/react": "npm:^18.2.55"
     "@types/react-dom": "npm:^18.2.19"

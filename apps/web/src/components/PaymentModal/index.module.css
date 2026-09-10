@@ -1,0 +1,155 @@
+.paymentCard {
+    width: 100%;
+    max-width: 480px;
+    padding: 34px;
+    background: #0f172a;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(56, 189, 248, 0.25);
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.planBadge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    color: var(--primary);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 1.45rem;
+    margin-bottom: 4px;
+}
+
+.desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.summaryBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(9, 13, 22, 0.6);
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    margin-bottom: 22px;
+    font-size: 0.95rem;
+}
+
+.summaryPrice {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.methodsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.methodItem {
+    border: 1px solid var(--card-border);
+    background: rgba(9, 13, 22, 0.4);
+    padding: 14px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.methodItem:hover {
+    border-color: var(--primary);
+}
+
+.activeMethod {
+    border-color: var(--primary);
+    background: rgba(56, 189, 248, 0.1);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
+}
+
+.methodIcon {
+    font-size: 1.4rem;
+}
+
+.methodTitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.methodSub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* Степы ожидания и успеха */
+.stepWaiting,
+.stepSuccess {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(56, 189, 248, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.waitActions {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hintText {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.successIcon {
+    width: 60px;
+    height: 60px;
+    background: var(--secondary);
+    color: #090d16;
+    font-size: 2rem;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+}

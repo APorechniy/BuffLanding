@@ -1,6 +1,20 @@
 import nodemailer from 'nodemailer';
 import { env } from '../config/env';
-import { generateTrialEmail } from '@/utils/generate-email';
+import { generateTariffEmail, generateTrialEmail } from '@/utils/generate-email';
+
+type SendSubscribeParams = ({
+    mode: "TRIAL"
+} & {
+    sublink: string,
+    clientEmail: string
+}) | ({
+    mode: "TARIFF"
+} & {
+    sublink: string,
+    clientEmail: string,
+    amount: number,
+    tariffName: string
+})
 
 export class EmailService {
     private smtpHost = env.SMTP_HOST;
@@ -20,18 +34,17 @@ export class EmailService {
         })
     }
 
-    async sendSubscribe(params: {
-        clientEmail: string;
-        sublink: string;
-    }): Promise<boolean> {
+    async sendSubscribe(params: SendSubscribeParams): Promise<boolean> {
         const transporter = this.smtpConfig;
+
+        const html = params.mode === "TRIAL" ? generateTrialEmail(params.sublink) : generateTariffEmail(params.sublink, params.tariffName, params.amount)
 
         const payload = {
             from: `Buff Manager | <${this.smtpUser}>`,
             to: params.clientEmail,
             subject: "BUFF | Доступ к сервису",
             text: `Ваша ссылка: ${params.sublink}`,
-            html: generateTrialEmail(params.sublink),
+            html: html,
         };
 
         try {

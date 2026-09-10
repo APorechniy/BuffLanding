@@ -8,6 +8,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
+            '@buffvpn/shared': path.resolve(__dirname, '../../apps/shared/src'),
         },
     },
     server: {

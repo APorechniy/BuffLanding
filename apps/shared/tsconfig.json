@@ -9,6 +9,8 @@
         ],
         "module": "ESNext",
         "skipLibCheck": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
@@ -20,9 +22,6 @@
         "paths": {
             "@/*": [
                 "src/*"
-            ],
-            "@buffvpn/shared": [
-                "../../packages/shared/src/index.ts"
             ]
         }
     },

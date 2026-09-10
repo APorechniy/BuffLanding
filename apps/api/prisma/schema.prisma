@@ -20,7 +20,7 @@ model User {
 
 model Payment {
   orderId   String   @id
-  userId    BigInt
+  userId    String
   amount    Float
   tariffId  String?
   status    String   @default("pending")
