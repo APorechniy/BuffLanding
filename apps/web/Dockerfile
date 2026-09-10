@@ -4,15 +4,15 @@ RUN corepack enable
 
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
-COPY packages/shared/package.json ./packages/shared/
+COPY apps/shared/package.json ./apps/shared/
 COPY apps/web/package.json ./apps/web/
 
 RUN yarn install
 
-COPY packages/shared ./packages/shared
+COPY apps/shared ./apps/shared
 COPY apps/web ./apps/web
 
-WORKDIR /app/packages/shared
+WORKDIR /app/apps/shared
 RUN yarn build || true
 
 WORKDIR /app/apps/web

@@ -8,13 +8,13 @@ COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
 
 # Копируем package.json всех воркспейсов
-COPY packages/shared/package.json ./packages/shared/
+COPY apps/shared/package.json ./apps/shared/
 COPY apps/api/package.json ./apps/api/
 
 RUN yarn install
 
 # Копируем исходники shared и api
-COPY packages/shared ./packages/shared
+COPY apps/shared ./apps/shared
 COPY apps/api ./apps/api
 
 WORKDIR /app/apps/api
