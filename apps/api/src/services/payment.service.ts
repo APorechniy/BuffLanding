@@ -11,7 +11,7 @@ export interface PaymentInvoice {
 export interface PaymentWebhookPayload {
     orderId: string;
     amount: number;
-    status: string; // 'success' | etc
+    status: "NEW" | "PROCESSING" | "PAID" | "EXPIRED" | "ERROR" | "REFUNDED"
     rawData: Record<string, any>;
 }
 
@@ -171,9 +171,9 @@ export class PaymentService {
         const amount = Number(data.amount || 0);
         const rawStatus = String(data.status || '').toLowerCase();
 
-        const normalizedStatus = ['success', 'paid', 'completed'].includes(rawStatus)
-            ? 'success'
-            : rawStatus;
+        const normalizedStatus: PaymentWebhookPayload["status"] = ["NEW", "PROCESSING", "PAID", "EXPIRED", "ERROR", "REFUNDED"].includes(rawStatus)
+            ? rawStatus as PaymentWebhookPayload["status"]
+            : "ERROR";
 
         return {
             orderId,

@@ -1,123 +1,195 @@
-import React, { useEffect, useRef } from "react";
-import { data } from "../../content/data";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
+import logoImg from "../../assets/logo.png";
 
-type Props = {
-    onOpenTrial: () => void
-}
-
-const Hero: React.FC<Props> = ({ onOpenTrial }) => {
-    const { hero } = data;
-
-    // Рефы для элементов анимации (прямой доступ к DOM без re-renders)
-    const ring1Ref = useRef<HTMLDivElement>(null);
-    const ring2Ref = useRef<HTMLDivElement>(null);
-    const dotRef = useRef<HTMLDivElement>(null);
+export default function Hero() {
+    const [isShrunk, setIsShrunk] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        let animId: number;
-        let startTime = performance.now();
+        const timer1 = setTimeout(() => {
+            setIsShrunk(true);
+            const timer2 = setTimeout(() => {
+                setIsVisible(true);
+            }, 150);
+            return () => clearTimeout(timer2);
+        }, 1500);
 
-        // 60-120 FPS цикл анимации на чистом JS
-        const animate = (currentTime: number) => {
-            const elapsed = (currentTime - startTime) / 1000; // секунды
-
-            // 1. Анимация зеленой точки статуса (синусоида ~2 секунды на цикл)
-            if (dotRef.current) {
-                const dotSine = (Math.sin(elapsed * 3.14) + 1) / 2; // 0..1
-                dotRef.current.style.opacity = (0.4 + dotSine * 0.6).toFixed(3);
-                dotRef.current.style.transform = `scale(${(0.85 + dotSine * 0.15).toFixed(3)})`;
-            }
-
-            // 2. Первое кольцо (цикл 2.6 сек)
-            if (ring1Ref.current) {
-                const progress1 = (elapsed % 2.6) / 2.6; // 0..1
-                const scale1 = 0.85 + progress1 * 0.55;
-                const opacity1 = (1 - progress1) * 0.5;
-                ring1Ref.current.style.transform = `scale(${scale1.toFixed(3)})`;
-                ring1Ref.current.style.opacity = opacity1.toFixed(3);
-            }
-
-            // 3. Второе кольцо со сдвигом фазы (на 1.3 секунды)
-            if (ring2Ref.current) {
-                const progress2 = ((elapsed + 1.3) % 2.6) / 2.6; // 0..1
-                const scale2 = 0.85 + progress2 * 0.55;
-                const opacity2 = (1 - progress2) * 0.5;
-                ring2Ref.current.style.transform = `scale(${scale2.toFixed(3)})`;
-                ring2Ref.current.style.opacity = opacity2.toFixed(3);
-            }
-
-            animId = requestAnimationFrame(animate);
-        };
-
-        animId = requestAnimationFrame(animate);
-
-        // Очистка при размонтировании: цикл не висит в памяти
-        return () => cancelAnimationFrame(animId);
+        return () => clearTimeout(timer1);
     }, []);
 
+    // Плавный переход к тарифам
+    const handleScrollToPricing = () => {
+        const pricingElem = document.getElementById("pricing");
+        if (pricingElem) {
+            pricingElem.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
     return (
-        <section className={styles.hero}>
-            <div className={styles.heroGlow}></div>
+        <section className={styles.heroWrapper}>
+            {/* Атмосферные свечения */}
+            <div className={`${styles.bgGlow} ${styles.bgGlow1}`}></div>
+            <div className={`${styles.bgGlow} ${styles.bgGlow2}`}></div>
 
-            <div className={`container ${styles.heroContainer}`}>
-                {/* Компактный статус-бейдж */}
-                <div className={styles.statusBadge}>
-                    <span ref={dotRef} className={styles.pulseDot}></span>
-                    <span>Сеть готова • 10 Gbps VLESS-Reality</span>
-                </div>
+            {/* Центральный выделенный логотип с анимацией перехода на фон */}
+            <div
+                className={`${styles.logoWrapper} ${isShrunk ? styles.logoWrapperShrunk : ""
+                    }`}
+            >
+                <img
+                    src={logoImg}
+                    alt="Buff VPN Logo"
+                    className={styles.logoImg}
+                />
+            </div>
 
-                {/* Главная кнопка подключения */}
-                <div className={styles.buttonStage}>
-                    <div ref={ring1Ref} className={styles.pulseRing}></div>
-                    <div ref={ring2Ref} className={styles.pulseRing}></div>
+            {/* Главный интерфейс */}
+            <div
+                className={`${styles.appLayout} ${isVisible ? styles.layoutVisible : ""
+                    }`}
+            >
+                {/* Левая панель: Призыв к действию и переход на тарифы */}
+                <main className={`${styles.panel} ${styles.panelLeft}`}>
+                    <article className={`${styles.card} ${styles.cardCenter}`}>
+                        <h1 className={styles.cardTitle}>Включи свободу</h1>
+                        <p className={styles.cardSubtitle}>
+                            Мгновенный обход любых блокировок на скорости до <strong>10 Гбит/с</strong>.
+                            Нажми для выбора тарифа:
+                        </p>
 
-                    <button
-                        type="button"
-                        className={styles.connectBtn}
-                        onClick={onOpenTrial}
-                        aria-label="Подключить VPN"
-                    >
-                        <div className={styles.powerIcon}>
-                            <svg
-                                viewBox="0 0 24 24"
-                                width="64"
-                                height="64"
-                                stroke="currentColor"
-                                strokeWidth="2.4"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                        <div className={styles.actionWrapper}>
+                            <button
+                                type="button"
+                                className={styles.btnPower}
+                                onClick={handleScrollToPricing}
+                                aria-label="Выбрать тариф VPN"
                             >
-                                <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
-                                <line x1="12" y1="2" x2="12" y2="12"></line>
-                            </svg>
+                                <span className={styles.btnText}>
+                                    <svg
+                                        className={styles.btnIcon}
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 2v10"></path>
+                                        <path d="M18.4 6.6a9 9 0 1 1-12.8 0"></path>
+                                    </svg>
+                                    <span>ПОДКЛЮЧИТЬ</span>
+                                </span>
+                            </button>
+                            <span className={styles.btnHint}>Без рекламы и ограничений</span>
                         </div>
-                        <span className={styles.btnLabel}>ПОДКЛЮЧИТЬ</span>
-                    </button>
-                </div>
+                    </article>
+                </main>
 
-                {/* Акцентный интерактивный блок «1 день бесплатно» */}
-                <button
-                    type="button"
-                    className={styles.trialPill}
-                    aria-label="Активировать 1 день бесплатно"
-                >
-                    <span className={styles.trialIcon}>⚡</span>
-                    <span className={styles.trialText}>1 день бесплатно</span>
-                </button>
+                {/* Правая панель: Обновленная инструкция */}
+                <aside className={`${styles.panel} ${styles.panelRight}`}>
+                    <section className={styles.card}>
+                        <h2 className={styles.cardTitle}>Подключение за 3 минуты</h2>
 
-                {/* Лаконичные метрики в виде одной полоски */}
-                <div className={styles.quickStats}>
-                    <span className={styles.statPoint}><b>99.98%</b> Uptime</span>
-                    <span className={styles.statPoint}>•</span>
-                    <span className={styles.statPoint}><b>&lt; 50 ms</b> Пинг</span>
-                    <span className={styles.statPoint}>•</span>
-                    <span className={styles.statPoint}><b>0</b> Логов</span>
-                </div>
+                        <ol className={styles.steps}>
+                            <li className={styles.stepsItem}>
+                                <span className={styles.stepsNum}>1</span>
+                                <div className={styles.stepsContent}>
+                                    <strong>Выберите тарифный план</strong>
+                                    <p>
+                                        От быстрого теста на 10 минут до выгодной подписки на 3 месяца.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li className={styles.stepsItem}>
+                                <span className={styles.stepsNum}>2</span>
+                                <div className={styles.stepsContent}>
+                                    <strong>Укажите ваш Email</strong>
+                                    <p>
+                                        На него мгновенно придет ссылка с личным защищенным ключом доступа.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li className={`${styles.stepsItem} ${styles.stepsItemHighlight}`}>
+                                <span className={styles.stepsNum}>3</span>
+                                <div className={styles.stepsContent}>
+                                    <strong>Оплатите и пользуйтесь</strong>
+                                    <p>
+                                        Удобная оплата через СБП или картами РФ. Импорт в приложение нажатием 1 кнопки!
+                                    </p>
+                                </div>
+                            </li>
+                        </ol>
+                    </section>
+                </aside>
+
+                {/* Нижний блок: Преимущества и FAQ */}
+                <footer className={`${styles.panel} ${styles.panelFull}`}>
+                    <div
+                        className={styles.card}
+                        style={{ height: "auto", justifyContent: "flex-start", gap: "16px" }}
+                    >
+                        <section>
+                            <h2
+                                style={{
+                                    fontSize: "1.1rem",
+                                    fontWeight: 700,
+                                    color: "#fff",
+                                    marginBottom: "6px",
+                                }}
+                            >
+                                Преимущества протокола VLESS-Reality
+                            </h2>
+                            <p
+                                style={{
+                                    fontSize: "0.84rem",
+                                    color: "var(--text-muted)",
+                                    lineHeight: 1.5,
+                                }}
+                            >
+                                Buff VPN маскирует зашифрованный трафик под стандартный серфинг,
+                                делая его абсолютно невидимым для провайдеров и блокировок ТСПУ.
+                                Поддержка iOS, Android, Windows, macOS и роутеров.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2
+                                style={{
+                                    fontSize: "1.1rem",
+                                    fontWeight: 700,
+                                    color: "#fff",
+                                    marginBottom: "6px",
+                                }}
+                            >
+                                Часто задаваемые вопросы (FAQ)
+                            </h2>
+
+                            <details className={styles.detailsItem}>
+                                <summary className={styles.summaryTitle}>
+                                    Куда вставлять ключ после покупки?
+                                </summary>
+                                <p className={styles.detailsDesc}>
+                                    В письме будет прямая кнопка автоимпорта. Приложение (Streisand,
+                                    v2rayNG, Happ или Hiddify) откроется само и подключит профиль.
+                                </p>
+                            </details>
+
+                            <details className={styles.detailsItem}>
+                                <summary className={styles.summaryTitle}>
+                                    Сколько устройств можно использовать?
+                                </summary>
+                                <p className={styles.detailsDesc}>
+                                    В зависимости от тарифа — от 4 до 10 ваших гаджетов одновременно
+                                    на одной подписке.
+                                </p>
+                            </details>
+                        </section>
+                    </div>
+                </footer>
             </div>
         </section>
     );
 }
-
-export default Hero

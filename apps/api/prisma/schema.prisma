@@ -23,6 +23,6 @@ model Payment {
   userId    String
   amount    Float
   tariffId  String?
-  status    String   @default("pending")
+  status    String   @default("NEW")
   createdAt DateTime @default(now())
 }

@@ -4,6 +4,14 @@ import { env } from '../config/env.js';
 import { xuiService } from './xui.service.js';
 import { emailService } from './email.service.js';
 
+interface TrialResult {
+    success: boolean;
+    status: 'NEW_TRIAL' | 'ACTIVE_SUBSCRIPTION' | 'TRIAL_EXPIRED';
+    message: string;
+    subUrl?: string;
+    expiresAt?: Date;
+}
+
 const prisma = new PrismaClient();
 
 export class VpnService {
@@ -48,27 +56,78 @@ export class VpnService {
         return `${env.XUI_SUB_BASE_URL.replace(/\/$/, '')}/buff-subscribe/${subId}`;
     }
 
-    async activateTrial(email: string): Promise<{ success: boolean; subUrl?: string; message?: string }> {
-        const user = await prisma.user.findUnique({ where: { email } });
+    async getSubscriptionUrl(email: string): Promise<string> {
+        const cleanEmail = email.trim().toLowerCase();
+        const user = await prisma.user.findUnique({ where: { email: cleanEmail } });
 
-        if (user?.trialUsed) {
-            return { success: false, message: 'Пробный период уже был использован.' };
+        if (!user) {
+            throw new Error("Пользователь не найден")
         }
 
-        const subUrl = await this.grantVpnAccess(email, 1, 10);
+        return `${env.XUI_SUB_BASE_URL.replace(/\/$/, '')}/buff-subscribe/${user.subId}`;
+    }
 
-        await prisma.user.update({
-            where: { email },
-            data: { trialUsed: true },
+    async activateTrial(email: string): Promise<TrialResult> {
+        const cleanEmail = email.trim().toLowerCase();
+        const user = await prisma.user.findUnique({ where: { email: cleanEmail } });
+
+        const now = new Date();
+
+        // Случай 2: Пользователь с еще ДЕЙСТВУЮЩИМ доступом
+        if (user && user.expiresAt && user.expiresAt > now) {
+            return {
+                success: false,
+                status: 'ACTIVE_SUBSCRIPTION',
+                message: 'У вас уже есть активная подписка. Ссылка доступа ранее была отправлена на вашу почту.',
+                expiresAt: user.expiresAt,
+            };
+        }
+
+        // Случай 3: Пользователь уже брал триал, и срок действия истек
+        if (user?.trialUsed) {
+            return {
+                success: false,
+                status: 'TRIAL_EXPIRED',
+                message: 'Пробный период для этого Email уже был использован. Выберите подходящий тариф для продления.',
+            };
+        }
+
+        // Случай 1: Новый пользователь (или пользователь без триала) -> Выдаем доступ
+        const subUrl = await this.grantVpnAccess(cleanEmail, 1, 10);
+
+        const oneDayLater = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+        // Создаем или обновляем пользователя
+        await prisma.user.upsert({
+            where: { email: cleanEmail },
+            create: {
+                userId: String(Date.now()),
+                email: cleanEmail,
+                subId: Math.random().toString(36).substring(2, 10),
+                status: 'active',
+                trialUsed: true,
+                expiresAt: oneDayLater,
+            },
+            update: {
+                trialUsed: true,
+                status: 'active',
+                expiresAt: oneDayLater,
+            },
         });
 
+        // Отправляем письмо с ключом
         await emailService.sendSubscribe({
-            clientEmail: email,
+            clientEmail: cleanEmail,
             sublink: subUrl,
-            mode: "TRIAL"
-        })
+            mode: 'TRIAL',
+        });
 
-        return { success: true, subUrl };
+        return {
+            success: true,
+            status: 'NEW_TRIAL',
+            message: 'Пробный период на 1 день успешно активирован!',
+            subUrl,
+        };
     }
 }
 

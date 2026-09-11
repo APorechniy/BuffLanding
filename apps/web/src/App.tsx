@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Header from "./components/Header";
 import Hero from "./components/Hero";
 import TrialModal from "./components/TrialModal";
 import Features from "./components/Features";
@@ -17,11 +16,10 @@ export default function App() {
 
     return (
         <>
-            <Header onOpenTrial={() => setIsTrialOpen(true)} />
             <main>
-                <Hero onOpenTrial={() => setIsTrialOpen(true)} />
+                <Hero />
                 <Features />
-                <Pricing onSelectTariff={(tariff) => setSelectedTariff(tariff)} />
+                <Pricing onSelectTariff={(tariff) => setSelectedTariff(tariff)} onOpenTrial={() => setIsTrialOpen(true)} />
                 <Locations />
                 <Steps />
                 <FAQ />

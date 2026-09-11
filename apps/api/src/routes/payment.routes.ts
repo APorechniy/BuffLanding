@@ -28,7 +28,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
                         userId: String(Date.now()),
                         email: cleanEmail,
                         subId: Math.random().toString(36).substring(2, 10),
-                        status: 'pending',
+                        status: 'NEW',
                     },
                 });
             }
@@ -39,7 +39,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
                     userId: user.userId,
                     amount: tariff.price,
                     tariffId: tariff.id,
-                    status: 'pending',
+                    status: 'NEW',
                 },
             });
 
@@ -66,7 +66,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
         }
 
         const webhookData = paymentService.parseWebhook(body);
-        if (webhookData.status === 'success') {
+        if (webhookData.status === 'PAID') {
             const payment = await prisma.payment.findUnique({ where: { orderId: webhookData.orderId } });
 
             if (!payment) {
@@ -104,7 +104,23 @@ export async function paymentRoutes(fastify: FastifyInstance) {
         });
 
         if (!payment) return reply.status(404).send({ error: 'Заказ не найден' });
-        return reply.send({ status: payment.status });
+
+        let subscriptionUrl: string | undefined = undefined;
+
+        // Если заказ оплачен, генерируем ссылку для показа в интерфейсе
+        if (payment.status === 'PAID') {
+            const user = await prisma.user.findUnique({ where: { userId: payment.userId } });
+            if (user) {
+                subscriptionUrl = await vpnService.getSubscriptionUrl(user.email);
+            } else {
+                return reply.status(500).send({ error: "Пользователь не найден" });
+            }
+        }
+
+        return reply.send({
+            status: payment.status,
+            subscriptionUrl
+        });
     });
 }
 

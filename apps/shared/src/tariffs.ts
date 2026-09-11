@@ -7,11 +7,24 @@ export interface Tariff {
     total_gb: number;
     devices: number;
     icon: string;
+    isTrial?: boolean;
     featured?: boolean;
     badge?: string;
 }
 
 export const TARIFFS: Record<string, Tariff> = {
+    "trial": {
+        id: "trial",
+        name: "1 день бесплатно",
+        price: 0,
+        days: 1,
+        minutes: 0,
+        total_gb: 5,
+        devices: 3,
+        icon: "⚡",
+        badge: "Free Trial",
+        isTrial: true,
+    },
     "1": {
         id: "1",
         name: "13 минут (пизжу, час)",
