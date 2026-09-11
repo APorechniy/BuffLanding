@@ -107,3 +107,4 @@ export async function paymentRoutes(fastify: FastifyInstance) {
         return reply.send({ status: payment.status });
     });
 }
+
