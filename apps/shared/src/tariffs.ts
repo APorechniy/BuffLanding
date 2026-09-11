@@ -14,10 +14,10 @@ export interface Tariff {
 export const TARIFFS: Record<string, Tariff> = {
     "1": {
         id: "1",
-        name: "10 минут (тебе хватит)",
+        name: "13 минут (пизжу, час)",
         price: 13,
         days: 0,
-        minutes: 13,
+        minutes: 66,
         total_gb: 5,
         devices: 6,
         icon: "🚶‍♂️",
