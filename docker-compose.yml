@@ -10,8 +10,6 @@ services:
     env_file:
       - .env
     environment:
-      - NODE_TLS_REJECT_UNAUTHORIZED=0
-      # База лежит в примонтированном томе
       - DATABASE_URL=file:/app/data/dev.db
     volumes:
       - sqlite_data:/app/data
