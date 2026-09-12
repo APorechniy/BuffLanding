@@ -23,9 +23,9 @@ export class VpnService {
 
         const now = new Date();
         const baseTime = (user?.expiresAt && user.expiresAt > now) ? user.expiresAt : now;
-        const expiresAt = new Date(baseTime.getTime() + days * 24 * minutes * 60 * 1000);
+        const expiresAt = new Date(baseTime.getTime() + days * 24 * 60 * 60 * 1000);
         const expiryMs = expiresAt.getTime();
-        console.log(`\x1b[31mTOTAL GB: ${totalGb}\x1b[0m`)
+
         // 1. Добавляем или обновляем в 3X-UI
         let success = await xuiService.addClient({
             userId,
@@ -34,7 +34,7 @@ export class VpnService {
             expiryTimeMs: expiryMs,
             totalGbLimit: totalGb,
         });
-        console.log(`\x1b[31mSUCCESS: ${success}\x1b[0m`)
+
         if (!success) {
             success = await xuiService.updateClientStatus({
                 userId,
@@ -44,7 +44,7 @@ export class VpnService {
                 expiryTimeMs: expiryMs,
                 totalGbLimit: totalGb,
             });
-            console.log(`\x1b[31mSUCCESS 2: ${success}\x1b[0m`)
+
             if (!success) throw new Error('Failed to synchronize with 3X-UI panel');
         }
 

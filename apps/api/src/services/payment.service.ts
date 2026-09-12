@@ -1,4 +1,7 @@
 import crypto from 'node:crypto';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export interface PaymentInvoice {
     id: string;
@@ -107,6 +110,23 @@ export class PaymentService {
             amount: amount,
             rawResponse: data,
         };
+    }
+
+    /**
+     * Обновление статуса
+     */
+    async updateInvoiceStatus(orderId: string, newStatus: string): Promise<boolean> {
+        try {
+            await prisma.payment.update({
+                where: { orderId },
+                data: { status: newStatus }
+            });
+
+            return true
+        } catch (e) {
+            console.error("Cannot update payment status")
+            return false
+        }
     }
 
     /**
