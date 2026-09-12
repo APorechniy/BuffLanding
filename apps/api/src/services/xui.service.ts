@@ -35,15 +35,21 @@ export class XuiService {
         };
 
         try {
+            const isCreatedUserBefore = await this.isCreatedUserBefore(params.email);
+
+            if (isCreatedUserBefore) {
+                return false
+            }
+
             const res = await fetch(`${this.baseUrl}/panel/api/clients/add`, {
                 method: 'POST',
                 headers: this.headers,
                 body: JSON.stringify(payload),
             });
-            console.log(`\x1b[31mADD RES: ${JSON.stringify(res)}\x1b[0m`)
+
             if (!res.ok) return false;
             const data = await res.json() as { success: boolean };
-            console.log(`\x1b[31mADD DATA: ${JSON.stringify(data)}\x1b[0m`)
+
             return data.success;
         } catch (err) {
             console.error('XUI addClient Error:', err);
@@ -84,6 +90,22 @@ export class XuiService {
             return data.success;
         } catch (err) {
             console.error('XUI updateClientStatus Error:', err);
+            return false;
+        }
+    }
+
+    async isCreatedUserBefore(email: string) {
+        try {
+            const res = await fetch(`${this.baseUrl}/panel/api/clients/get/${email}`, {
+                method: 'GET',
+                headers: this.headers,
+            });
+
+            if (!res.ok) return false;
+            const data = await res.json() as { success: boolean };
+            return data.success;
+        } catch (err) {
+            console.error('XUI isCreatedUserBefore Error:', err);
             return false;
         }
     }
