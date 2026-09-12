@@ -85,6 +85,8 @@ export async function paymentRoutes(fastify: FastifyInstance) {
 
                 const subUrl = await vpnService.grantVpnAccess(user.email, tariff.days, tariff.minutes, tariff.total_gb)
 
+                await paymentService.updateInvoiceStatus(webhookData.orderId, webhookData.status)
+
                 await emailService.sendSubscribe({
                     clientEmail: user.email,
                     sublink: subUrl,
