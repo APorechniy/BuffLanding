@@ -66,6 +66,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
         }
 
         const webhookData = paymentService.parseWebhook(body);
+
         if (webhookData.status === 'PAID') {
             const payment = await prisma.payment.findUnique({ where: { orderId: webhookData.orderId } });
 
@@ -82,7 +83,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
             if (payment && payment.status !== 'PAID') {
                 const tariff: Tariff = TARIFFS[payment.tariffId || '30'];
 
-                const subUrl = await vpnService.grantVpnAccess(user.email, tariff.days, tariff.total_gb)
+                const subUrl = await vpnService.grantVpnAccess(user.email, tariff.days, tariff.minutes, tariff.total_gb)
 
                 await emailService.sendSubscribe({
                     clientEmail: user.email,

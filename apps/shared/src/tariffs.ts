@@ -29,7 +29,7 @@ export const TARIFFS: Record<string, Tariff> = {
         id: "1",
         name: "13 минут (пизжу, час)",
         price: 13,
-        days: 0,
+        days: 1,
         minutes: 66,
         total_gb: 5,
         devices: 6,

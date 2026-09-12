@@ -15,7 +15,7 @@ interface TrialResult {
 const prisma = new PrismaClient();
 
 export class VpnService {
-    async grantVpnAccess(email: string, days: number, totalGb = 100): Promise<string> {
+    async grantVpnAccess(email: string, days: number, minutes: number, totalGb = 100): Promise<string> {
         let user = await prisma.user.findUnique({ where: { email } });
 
         const userId = user?.userId || crypto.randomUUID();
@@ -23,7 +23,7 @@ export class VpnService {
 
         const now = new Date();
         const baseTime = (user?.expiresAt && user.expiresAt > now) ? user.expiresAt : now;
-        const expiresAt = new Date(baseTime.getTime() + days * 24 * 60 * 60 * 1000);
+        const expiresAt = new Date(baseTime.getTime() + days * 24 * minutes * 60 * 1000);
         const expiryMs = expiresAt.getTime();
 
         // 1. Добавляем или обновляем в 3X-UI
