@@ -56,13 +56,14 @@ export class XuiService {
         subId: string;
         enable: boolean;
         expiryTimeMs: number;
+        totalGbLimit: number;
     }): Promise<boolean> {
         const payload = {
             id: params.userId,
             alterId: 0,
             email: params.email,
             limitIp: 2,
-            totalGB: 100 * 1024 * 1024 * 1024,
+            totalGB: params.totalGbLimit,
             expiryTime: params.expiryTimeMs,
             enable: params.enable,
             subId: params.subId,
@@ -76,7 +77,7 @@ export class XuiService {
                 headers: this.headers,
                 body: JSON.stringify(payload),
             });
-
+            console.log("XUI RESPONSE:", JSON.stringify(res))
             if (!res.ok) return false;
             const data = await res.json() as { success: boolean };
             return data.success;

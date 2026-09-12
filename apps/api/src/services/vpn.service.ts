@@ -93,7 +93,7 @@ export class VpnService {
         }
 
         // Случай 1: Новый пользователь (или пользователь без триала) -> Выдаем доступ
-        const subUrl = await this.grantVpnAccess(cleanEmail, 1, 10);
+        const subUrl = await this.grantVpnAccess(cleanEmail, 1, 60, 10);
 
         const oneDayLater = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
