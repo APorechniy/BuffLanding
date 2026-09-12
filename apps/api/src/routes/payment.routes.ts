@@ -60,8 +60,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
     fastify.post('/api/payment/webhook', async (req: FastifyRequest, reply: FastifyReply) => {
         const rawSignature = (req.headers['x-signature'] || req.headers['X-SIGNATURE']) as string;
         const body = req.body as Record<string, any>;
-        console.log("WEBHOOK HEADERS", JSON.stringify(req.headers))
-        console.log("WEBHOOK BODY", JSON.stringify(body))
+
         if (!paymentService.verifyWebhookSignature(JSON.stringify(body), rawSignature)) {
             return reply.status(400).send({ error: 'Invalid signature' });
         }

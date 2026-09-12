@@ -23,7 +23,10 @@ export function generateSignature(params: Record<string, any>, secretKey: string
     for (const key of sortedKeys) {
         let val = params[key];
 
-        if (typeof val === 'number') {
+        // 1. ВАЖНО: null или undefined должны быть пустой строкой, а не словом "null"
+        if (val === null || val === undefined) {
+            val = '';
+        } else if (typeof val === 'number') {
             if (Number.isInteger(val)) {
                 val = val.toString();
             } else {
