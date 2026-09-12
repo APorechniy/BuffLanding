@@ -172,7 +172,7 @@ export class PaymentService {
     parseWebhook(data: Record<string, any>): PaymentWebhookPayload {
         const orderId = String(data.order_id);
         const amount = Number(data.amount || 0);
-        const rawStatus = String(data.status || '').toLowerCase();
+        const rawStatus = String(data.status || '').toUpperCase();
 
         const normalizedStatus: PaymentWebhookPayload["status"] = ["NEW", "PROCESSING", "PAID", "EXPIRED", "ERROR", "REFUNDED"].includes(rawStatus)
             ? rawStatus as PaymentWebhookPayload["status"]

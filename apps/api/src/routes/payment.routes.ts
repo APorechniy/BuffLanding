@@ -79,7 +79,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
                 throw new Error("[WEBHOOK]: Cannot find user")
             }
 
-            if (payment && payment.status !== 'completed') {
+            if (payment && payment.status !== 'PAID') {
                 const tariff: Tariff = TARIFFS[payment.tariffId || '30'];
 
                 const subUrl = await vpnService.grantVpnAccess(user.email, tariff.days, tariff.total_gb)
