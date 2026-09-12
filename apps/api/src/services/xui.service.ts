@@ -40,9 +40,10 @@ export class XuiService {
                 headers: this.headers,
                 body: JSON.stringify(payload),
             });
-            console.log(`\x1b[31mADD RES: ${res}\x1b[0m`)
+            console.log(`\x1b[31mADD RES: ${JSON.stringify(res)}\x1b[0m`)
             if (!res.ok) return false;
             const data = await res.json() as { success: boolean };
+            console.log(`\x1b[31mADD DATA: ${JSON.stringify(data)}\x1b[0m`)
             return data.success;
         } catch (err) {
             console.error('XUI addClient Error:', err);
@@ -77,7 +78,7 @@ export class XuiService {
                 headers: this.headers,
                 body: JSON.stringify(payload),
             });
-            console.log(`\x1b[31mUPDATE RES: ${res}\x1b[0m`)
+            console.log(`\x1b[31mUPDATE RES: ${JSON.stringify(res)}\x1b[0m`)
             if (!res.ok) return false;
             const data = await res.json() as { success: boolean };
             return data.success;
