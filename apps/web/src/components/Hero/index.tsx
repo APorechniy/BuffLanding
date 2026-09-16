@@ -7,7 +7,7 @@ export default function Hero() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        let timer2: number;
+        let timer2: any;
         const timer1 = setTimeout(() => {
             timer2 = setTimeout(() => {
                 setIsVisible(true);
