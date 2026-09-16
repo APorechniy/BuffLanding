@@ -44,21 +44,18 @@ body {
     z-index: 1;
 }
 
-/* Sections */
-.section {
-    padding: 90px 0;
-}
-
 .section-header {
     text-align: center;
     margin-bottom: 50px;
 }
 
 .section-title {
-    font-size: 2.5rem;
     font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
+    font-size: clamp(32px, 8.8vw, 44px);
+    line-height: 1.06;
+    /* Чуть свободнее, чтобы строки не наезжали */
+    letter-spacing: -.03em;
+    margin-top: 32px;
 }
 
 .section-subtitle {
@@ -121,51 +118,6 @@ body {
     border-color: var(--card-border-hover);
     transform: translateY(-4px);
     box-shadow: var(--glow);
-}
-
-/* Header */
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(9, 13, 22, 0.85);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(56, 189, 248, 0.12);
-    padding: 16px 0;
-}
-
-.header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--text-main);
-    text-decoration: none;
-}
-
-.logo span {
-    color: var(--primary);
-}
-
-.nav {
-    display: flex;
-    gap: 30px;
-}
-
-.nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.nav a:hover {
-    color: var(--primary);
 }
 
 /* Hero */
@@ -273,56 +225,6 @@ body {
 .feature-box p {
     color: var(--text-muted);
     font-size: 0.95rem;
-}
-
-/* Locations */
-.locations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-.loc-card {
-    padding: 18px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.loc-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.loc-flag {
-    font-size: 1.8rem;
-}
-
-.loc-name {
-    font-weight: 700;
-}
-
-.loc-city {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.loc-ping {
-    color: var(--secondary);
-    font-weight: 700;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.ping-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--secondary);
-    box-shadow: 0 0 10px var(--secondary);
 }
 
 /* Pricing */
@@ -520,7 +422,6 @@ body {
 
 .modal-content {
     width: 100%;
-    max-width: 500px;
     padding: 36px;
     position: relative;
     background: #0f172a;

@@ -2,13 +2,14 @@ import { useState } from "react";
 import Hero from "./components/Hero";
 import TrialModal from "./components/TrialModal";
 import Features from "./components/Features";
-import Locations from "./components/Locations";
+import { Locations } from "./components/Locations";
 import { Pricing } from "./components/Pricing";
 import Steps from "./components/Steps";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import { PaymentModal } from "./components/PaymentModal";
 import { Tariff } from "@buffvpn/shared";
+import { Header } from "./components/Header";
 
 export default function App() {
     const [isTrialOpen, setIsTrialOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function App() {
     return (
         <>
             <main>
+                <Header onOpenTrial={() => setIsTrialOpen(true)} />
                 <Hero />
                 <Features />
                 <Pricing onSelectTariff={(tariff) => setSelectedTariff(tariff)} onOpenTrial={() => setIsTrialOpen(true)} />

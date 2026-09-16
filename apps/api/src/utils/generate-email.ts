@@ -87,23 +87,12 @@ export const generateTrialEmail = (subscriptionUrl: string) => {
           </h1>
           
           <p style="font-size: 15px; line-height: 1.6; color: #94a3b8; margin: 0 0 28px 0;">
-            Ваш бесплатный пробный период успешно активирован. Перейдите по кнопке ниже для импорта подписки в ваше приложение:
+            Ваш бесплатный пробный период успешно активирован.
           </p>
-
-          <!-- Main CTA Button -->
-          <table align="center" style="margin: 0 auto 32px auto;">
-            <tr>
-              <td align="center" style="border-radius: 10px; background-color: #38bdf8;">
-                <a href="${subscriptionUrl}" target="_blank" class="button" style="background-color: #38bdf8; color: #04101e; text-decoration: none; padding: 14px 28px; font-weight: 700; border-radius: 10px; display: inline-block; font-size: 15px;">
-                  Подключить в 1 клик
-                </a>
-              </td>
-            </tr>
-          </table>
 
           <!-- Raw URL Box (fallback) -->
           <p style="font-size: 13px; color: #64748b; margin: 0; text-align: left;">
-            Либо скопируйте прямую ссылку и вставьте её вручную:
+            Скопируйте ссылку и вставьте ее в любой клиент в раздел "Подписка":
           </p>
           <div class="code-box" style="background-color: #090D16; border: 1px dashed rgba(56, 189, 248, 0.3); padding: 12px 16px; border-radius: 8px; color: #94a3b8; font-family: Monaco, Consolas, monospace; font-size: 12px; word-break: break-all; margin-top: 8px; text-align: left;">
             ${subscriptionUrl}
@@ -266,20 +255,9 @@ export const generateTariffEmail = (subscriptionUrl: string, tariffName: string,
     }
           </table>
 
-          <!-- Main CTA Button -->
-          <table align="center" style="margin: 0 auto 30px auto;">
-            <tr>
-              <td align="center" style="border-radius: 10px; background-color: #38bdf8;">
-                <a href="${subscriptionUrl}" target="_blank" class="button" style="background-color: #38bdf8; color: #04101e; text-decoration: none; padding: 14px 28px; font-weight: 700; border-radius: 10px; display: inline-block; font-size: 15px;">
-                  Подключить в 1 клик
-                </a>
-              </td>
-            </tr>
-          </table>
-
           <!-- Fallback URL -->
           <p style="font-size: 13px; color: #64748b; margin: 0; text-align: left;">
-            Если кнопка не срабатывает, скопируйте ссылку вручную:
+            Скопируйте ссылку и вставьте ее в любой клиент в раздел "Подписка":
           </p>
           <div class="code-box" style="background-color: #090D16; border: 1px dashed rgba(56, 189, 248, 0.3); padding: 12px 16px; border-radius: 8px; color: #94a3b8; font-family: Monaco, Consolas, monospace; font-size: 12px; word-break: break-all; margin-top: 8px; text-align: left;">
             ${subscriptionUrl}

@@ -1,0 +1,92 @@
+/* Header */
+.header {
+    position: relative;
+    max-width: 100vw;
+    overflow: hidden;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+    padding: 16px 108px;
+    box-sizing: border-box;
+
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+.logoWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logoImg {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logoText {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav a:hover {
+    color: var(--primary);
+}
+
+.layoutInvisible {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    /* Легкий сдвиг вниз для красивого выплывания */
+    pointer-events: none;
+    /* Чтобы кнопки нельзя было нажать, пока контент скрыт */
+}
+
+.layoutVisible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    pointer-events: all;
+}
+
+
+@media (max-width: 768px) {
+    .header {
+        padding: 16px 16px;
+    }
+
+    .nav {
+        display: none;
+    }
+}
