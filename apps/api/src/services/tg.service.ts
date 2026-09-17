@@ -21,8 +21,6 @@ export class TgService {
             `📦 *Тариф:* ${tariff.name}\n` +
             `📧 *Email:* \`${clientEmail}\`\n\n`;
 
-        console.log(this.botToken)
-        console.log(this.chatId)
         try {
             await this.botInstance.api.sendMessage({
                 chat_id: this.chatId,
