@@ -86,7 +86,7 @@ export const Pricing = ({ onSelectTariff, onOpenTrial }: PricingProps) => {
                             <h3 className={styles.planName}>{quickPlan.name}</h3>
 
                             <div className={styles.cost}>{quickPlan.price} ₽</div>
-                            <div className={styles.period}>на {quickPlan.minutes} минут теста</div>
+                            <div className={styles.period}>на 2 недели теста</div>
 
                             {renderFeatures(quickPlan)}
 

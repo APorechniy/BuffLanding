@@ -3,6 +3,8 @@ import crypto from 'node:crypto';
 import { env } from '../config/env.js';
 import { xuiService } from './xui.service.js';
 import { emailService } from './email.service.js';
+import { tgService } from './tg.service.js';
+import { TARIFFS } from '@buffvpn/shared';
 
 interface TrialResult {
     success: boolean;
@@ -123,6 +125,11 @@ export class VpnService {
             sublink: subUrl,
             mode: 'TRIAL',
         });
+
+        await tgService.sendTgNotification({
+            tariff: TARIFFS["trial"],
+            clientEmail: cleanEmail
+        })
 
         return {
             success: true,

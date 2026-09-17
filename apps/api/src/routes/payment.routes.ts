@@ -1,9 +1,10 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { PrismaClient } from '@prisma/client';
-import { paymentService } from '../services/payment.service';
+import { paymentService } from '@/services/payment.service';
 import { vpnService } from '@/services/vpn.service';
-import { emailService } from '../services/email.service';
-import { TARIFFS, Tariff } from '@buffvpn/shared';
+import { emailService } from '@/services/email.service';
+import { tgService } from '@/services/tg.service';
+import { TARIFFS, type Tariff } from '@buffvpn/shared';
 import { env } from '@/config/env';
 
 const prisma = new PrismaClient();
@@ -94,6 +95,11 @@ export async function paymentRoutes(fastify: FastifyInstance) {
                     tariffName: tariff.name,
                     amount: tariff.price
                 });
+
+                await tgService.sendTgNotification({
+                    tariff: tariff,
+                    clientEmail: user.email
+                })
             }
         }
 

@@ -1152,6 +1152,7 @@ __metadata:
     dotenv: "npm:^16.4.5"
     fastify: "npm:^4.26.1"
     node-cron: "npm:^3.0.3"
+    node-telegram-bot-api: "npm:^2.1.0"
     nodemailer: "npm:^10.0.1"
     prisma: "npm:^5.22.0"
     tsc-alias: "npm:^1.8.8"
@@ -2082,6 +2083,13 @@ __metadata:
   version: 2.0.54
   resolution: "node-releases@npm:2.0.54"
   checksum: 10c0/196b54ab06fd03b742816b6ca8185c69af42735b283083036e2579682c430b8f9ff89046891fe8c625557e5885793a2032d28070100bb2e57e6d6586b2f483c1
+  languageName: node
+  linkType: hard
+
+"node-telegram-bot-api@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "node-telegram-bot-api@npm:2.1.0"
+  checksum: 10c0/6191c35b5a3697d8c97a5629880c4b391081d43866ca0ae0cc7179cd8fbaf1ebc809346a45055abcac19a815ef83ffd10af2f41795617f3c879086fe74613ed9
   languageName: node
   linkType: hard
 

@@ -43,6 +43,10 @@ const envSchema = z.object({
     PAYMENT_SHOP_ID: z.string(),
     PAYMENT_API_KEY: z.string(),
     PAYMENT_CALLBACK_KEY: z.string(),
+
+    // TG BOT
+    BOT_TOKEN: z.string(),
+    SUPPORT_CHAT_ID: z.string()
 });
 
 export const env = envSchema.parse(process.env);
