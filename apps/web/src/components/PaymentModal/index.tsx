@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import styles from "./index.module.css";
 import { type Tariff } from "@buffvpn/shared";
+import { useCryptedEmail } from "@/hooks/use-crypted-email";
 
 type Props = {
     isOpen: boolean;
@@ -24,6 +25,8 @@ export const PaymentModal: React.FC<Props> = ({ isOpen, onClose, selectedPlan })
     const [subUrl, setSubUrl] = useState("");
     const [copied, setCopied] = useState(false);
 
+    const { handleSaveEmail } = useCryptedEmail()
+
     useEffect(() => {
         if (isOpen) {
             setStep(1);
@@ -44,6 +47,7 @@ export const PaymentModal: React.FC<Props> = ({ isOpen, onClose, selectedPlan })
 
         setLoading(true);
         setError("");
+        handleSaveEmail(email);
 
         try {
             const res = await fetch("/api/payment/create", {
@@ -51,7 +55,7 @@ export const PaymentModal: React.FC<Props> = ({ isOpen, onClose, selectedPlan })
                 headers: {
                     "Content-Type": "application/json",
                     "X-Internal-Secret":
-                        "pcthbmF77fE0tlDIsrSBF9eIznJ0SgPDDqzfHO8Unsu5BKtJc7Ganbrp59x5me9D",
+                        import.meta.env.VITE_EXTERNAL_SECRET,
                 },
                 body: JSON.stringify({
                     email: email.trim().toLowerCase(),

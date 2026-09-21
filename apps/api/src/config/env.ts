@@ -44,6 +44,8 @@ const envSchema = z.object({
     PAYMENT_API_KEY: z.string(),
     PAYMENT_CALLBACK_KEY: z.string(),
 
+    SECRET_KEY: z.string(),
+
     // TG BOT
     BOT_TOKEN: z.string(),
     SUPPORT_CHAT_ID: z.string()

@@ -1,6 +1,7 @@
 /* Header */
 .header {
     position: relative;
+    height: var(--header-height);
     max-width: 100vw;
     overflow: hidden;
     top: 0;

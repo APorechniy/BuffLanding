@@ -13,6 +13,8 @@
     --glow: 0 0 35px rgba(56, 189, 248, 0.16);
     --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --container-width: 1180px;
+    --header-height: 82px;
+    --footer-height: 96px;
 }
 
 * {
@@ -379,6 +381,7 @@ body {
 
 /* Footer */
 .footer {
+    height: var(--footer-height);
     border-top: 1px solid rgba(56, 189, 248, 0.12);
     padding: 36px 0;
     text-align: center;

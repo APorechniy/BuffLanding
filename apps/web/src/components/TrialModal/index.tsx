@@ -1,6 +1,7 @@
 import React, { type FormEvent, useState } from "react";
 import { data } from "../../content/data";
 import styles from "./index.module.css";
+import { useCryptedEmail } from "@/hooks/use-crypted-email";
 
 type Props = {
     isOpen: boolean;
@@ -25,6 +26,8 @@ const TrialModal: React.FC<Props> = ({ isOpen, onClose, onSelectTariff }) => {
     const [copied, setCopied] = useState(false);
     const [trialState, setTrialState] = useState<TrialState>({ type: "INITIAL" });
 
+    const { handleSaveEmail } = useCryptedEmail()
+
     if (!isOpen) return null;
 
     const handleGetTrial = async (e: FormEvent<HTMLFormElement>) => {
@@ -40,7 +43,7 @@ const TrialModal: React.FC<Props> = ({ isOpen, onClose, onSelectTariff }) => {
                 headers: {
                     "Content-Type": "application/json",
                     "X-Internal-Secret":
-                        "pcthbmF77fE0tlDIsrSBF9eIznJ0SgPDDqzfHO8Unsu5BKtJc7Ganbrp59x5me9D",
+                        import.meta.env.VITE_EXTERNAL_SECRET,
                 },
                 body: JSON.stringify({ email: email.trim().toLowerCase() }),
             });
@@ -49,6 +52,7 @@ const TrialModal: React.FC<Props> = ({ isOpen, onClose, onSelectTariff }) => {
 
             if (res.ok && resData.status === "NEW_TRIAL") {
                 setTrialState({ type: "NEW_TRIAL", subUrl: resData.subscriptionUrl });
+                handleSaveEmail(email)
                 return;
             }
 

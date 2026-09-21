@@ -16,6 +16,9 @@ services:
 
   # 2. Vite React SPA Frontend
   web:
+    environment:
+      - VITE_SECRET_KEY=dasj32h9_3j27fd_(&@)ds
+      - VITE_EXTERNAL_SECRET=pcthbmF77fE0tlDIsrSBF9eIznJ0SgPDDqzfHO8Unsu5BKtJc7Ganbrp59x5me9D
     build:
       context: .
       dockerfile: apps/web/Dockerfile

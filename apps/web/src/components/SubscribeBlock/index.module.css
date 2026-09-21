@@ -1,0 +1,123 @@
+.wrapper {
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    gap: 24px;
+}
+
+.copyBox {
+    margin-top: 18px;
+    text-align: left;
+}
+
+.copyRow {
+    display: flex;
+    gap: 8px;
+}
+
+.label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.paragraph {
+    display: block;
+    max-width: 768px;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.bottomRow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px;
+    margin-top: 64px;
+    margin: 0;
+    align-items: stretch;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    min-width: 200px;
+    border-radius: 22px;
+    padding: 32px 26px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    backdrop-filter: blur(16px);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    text-align: center;
+}
+
+.card:hover {
+    border-color: var(--card-border-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(56, 189, 248, 0.16);
+}
+
+.clientName {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    min-height: 46px;
+    text-align: center;
+}
+
+.platform {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+}
+
+.btnBuy {
+    width: 100%;
+    padding: 13px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    background-color: var(--primary);
+    color: #04101e;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+}
+
+@media (max-width: 768px) {
+    .copyRow {
+        flex-direction: column;
+    }
+
+    .copyRow button {
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .bottomRow {
+        width: 100%;
+
+        box-sizing: border-box;
+        padding: 16px;
+
+        grid-template-columns: 1fr;
+    }
+}
