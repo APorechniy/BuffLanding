@@ -79,7 +79,7 @@
 @media (max-width: 768px) {
     .locationsGrid {
         grid-template-columns: 1fr;
-        padding: 16px 0;
+        padding: 0 16px;
         box-sizing: border-box;
     }
 }

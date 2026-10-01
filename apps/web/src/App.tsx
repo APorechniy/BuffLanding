@@ -5,7 +5,7 @@ import Features from "./components/Features";
 import { Locations } from "./components/Locations";
 import { Pricing } from "./components/Pricing";
 import Steps from "./components/Steps";
-import FAQ from "./components/FAQ";
+import { FAQ } from "./components/FAQ";
 import Footer from "./components/Footer";
 import { PaymentModal } from "./components/PaymentModal";
 import { Tariff } from "@buffvpn/shared";

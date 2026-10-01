@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { data } from "../content/data";
+import { data } from "../../content/data";
 
-export default function FAQ() {
+import styles from './index.module.css'
+
+export const FAQ = () => {
     const [openIdx, setOpenIdx] = useState<number | null>(null);
 
     const toggle = (idx: number) => {
@@ -14,19 +16,21 @@ export default function FAQ() {
                 <div className="section-header">
                     <h2 className="section-title">{data.faq.title}</h2>
                 </div>
-                <div className="faq-list">
+                <div className={styles.faqList}>
                     {data.faq.items.map((item, idx) => (
                         <div
                             key={idx}
-                            className={`card faq-item ${openIdx === idx ? "active" : ""}`}
+                            className={`card ${styles.faqItem} ${openIdx === idx ? styles.active : ""}`}
                             onClick={() => toggle(idx)}
                         >
-                            <div className="faq-header">
+                            <div className={styles.faqHeader}>
                                 <span>{item.q}</span>
-                                <span className="faq-toggle">+</span>
+                                <span className={styles.faqToggle}>+</span>
                             </div>
-                            <div className="faq-body">
-                                <p>{item.a}</p>
+                            <div className={styles.faqBody}>
+                                <div className={styles.faqBodyInner}>
+                                    <p>{item.a}</p>
+                                </div>
                             </div>
                         </div>
                     ))}
