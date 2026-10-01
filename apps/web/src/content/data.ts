@@ -28,23 +28,23 @@ export const data = {
     },
     osGuides: {
         ios: {
-            appName: "Streisand / FoXray",
-            link: "https://apps.apple.com",
+            appName: "V2RAGE / Happ",
+            link: "https://apps.apple.com/ru/app/v2rage/id6761075402",
             step: "Скопируйте URL подписки выше, откройте приложение и нажмите '+' -> Импорт из буфера."
         },
         android: {
             appName: "v2rayNG / Happ",
-            link: "https://play.google.com",
+            link: "https://play.google.com/store/apps/details?id=com.happproxy&hl=en_GB",
             step: "Нажмите '+' в верхнем углу приложения и выберите 'Импорт профиля из буфера обмена'."
         },
         windows: {
-            appName: "Hiddify Next / v2rayN",
-            link: "#",
+            appName: "Hiddify / Happ",
+            link: "https://hiddify.com/",
             step: "Нажмите 'Добавить профиль из буфера' (Ctrl + V) в главном окне программы."
         },
         mac: {
-            appName: "FoXray / V2Box",
-            link: "#",
+            appName: "V2RAGE / Happ",
+            link: "https://apps.apple.com/ru/app/v2rage/id6761075402",
             step: "Импортируйте подписку по URL и включите системный VPN-профиль."
         }
     },
@@ -89,11 +89,11 @@ export const data = {
         items: [
             {
                 q: "Будет ли VPN работать при жестких блокировках?",
-                a: "Да, гарантированно. Стандартные протоколы (WireGuard, OpenVPN, Shadowsocks) вычисляются системами ТСПУ за секунды. Buff VPN использует протокол нового поколения VLESS с маскировкой Reality. Он имитирует стандартный защищенный TLS-трафик крупных мировых веб-сайтов, поэтому фильтры DPI не могут его обнаружить и заблокировать. Исключение - полная блокировка мобильного интернета."
+                a: "Да, за исключением полной блокировки мобильного интернета. Стандартные протоколы (WireGuard, OpenVPN, Shadowsocks) вычисляются системами ТСПУ за секунды. Buff VPN использует протокол нового поколения VLESS с маскировкой Reality. Он имитирует стандартный защищенный TLS-трафик крупных мировых веб-сайтов, поэтому фильтры DPI не могут его обнаружить и заблокировать."
             },
             {
                 q: "Какие приложения нужно установить для подключения?",
-                a: "Вам подойдут бесплатные клиенты с открытым исходным кодом: для iOS (iPhone/iPad) — Streisand, FoXray или V2Box; для Android — v2rayNG или Happ; для Windows и macOS — Hiddify Next или v2rayN. Сразу после оплаты на вашу почту придет ссылка, нажав на которую, конфигурация добавится в приложение автоматически в 1 клик."
+                a: "Вам подойдут бесплатные клиенты с открытым исходным кодом: для iOS (iPhone/iPad) — Happ, V2RAGE или V2Box; для Android — v2rayNG или Happ; для Windows и macOS — Hiddify или Happ. Сразу после оплаты на вашу почту придет ссылка, нажав на которую, конфигурация добавится в приложение автоматически в 1 клик."
             },
             {
                 q: "Будут ли открываться Госуслуги, Сбербанк и Тинькофф?",
