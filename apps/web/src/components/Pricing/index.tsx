@@ -9,10 +9,10 @@ interface PricingProps {
 export const Pricing = ({ onSelectTariff, onOpenTrial }: PricingProps) => {
     // Верхний ряд: Бесплатный триал и легкий тариф (13 руб)
     const trialPlan = TARIFFS["trial"];
-    const quickPlan = TARIFFS["1"];
+    const quickPlan = TARIFFS["30"];
 
     // Нижний ряд: 1 месяц, 2 месяца, 3 месяца
-    const regularPlans = [TARIFFS["30"], TARIFFS["60"], TARIFFS["90"]].filter(Boolean);
+    const regularPlans = [TARIFFS["60"], TARIFFS["90"]];
 
     // Рендер фичей списка
     const renderFeatures = (plan: Tariff) => (
@@ -46,9 +46,7 @@ export const Pricing = ({ onSelectTariff, onOpenTrial }: PricingProps) => {
                     </p>
                 </div>
 
-                {/* ================= ВЕРХНИЙ РЯД: 2 КАРТОЧКИ БЫСТРОГО СТАРТА ================= */}
                 <div className={styles.topRow}>
-                    {/* 1. БЕЛЫЙ LIQUID GLASS: БЕСПЛАТНЫЙ ТРИАЛ */}
                     {trialPlan && (
                         <div className={`${styles.card} ${styles.trialGlass}`}>
                             {trialPlan.badge && (
@@ -74,7 +72,6 @@ export const Pricing = ({ onSelectTariff, onOpenTrial }: PricingProps) => {
                         </div>
                     )}
 
-                    {/* 2. ИЗУМРУДНЫЙ LIQUID GLASS: ЛЕГКИЙ ТЕСТ (13 РУБЛЕЙ) */}
                     {quickPlan && (
                         <div className={`${styles.card} ${styles.emeraldGlass}`}>
                             {quickPlan.badge && (
@@ -101,7 +98,6 @@ export const Pricing = ({ onSelectTariff, onOpenTrial }: PricingProps) => {
                     )}
                 </div>
 
-                {/* ================= НИЖНИЙ РЯД: 3 РЕГУЛЯРНЫХ ТАРИФА ================= */}
                 <div className={styles.bottomRow}>
                     {regularPlans.map((plan) => {
                         const isFeatured = Boolean(plan.featured);

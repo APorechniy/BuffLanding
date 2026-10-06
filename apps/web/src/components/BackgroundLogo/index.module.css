@@ -26,13 +26,12 @@
   height: auto;
   max-width: 220px;
   display: block;
-  filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.45));
   animation: introPulse 1.5s ease-in-out;
 }
 
 .logoWrapperShrunk {
   transform: scale(0.9);
-  opacity: 0.42;
+  opacity: 0.18;
   z-index: 1;
   will-change: transform, opacity;
 }

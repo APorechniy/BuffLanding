@@ -7,7 +7,7 @@
     --secondary: #10B981;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
-    --card-bg: rgba(15, 23, 42, 0.94);
+    --card-bg: rgba(15, 23, 42, 0.96);
     --card-border: rgba(56, 189, 248, 0.22);
     --card-border-hover: rgba(56, 189, 248, 0.6);
     --glow: 0 0 35px rgba(56, 189, 248, 0.16);
@@ -99,7 +99,6 @@ body {
     background: rgba(15, 23, 42, 0.6);
     border-color: var(--card-border);
     color: var(--text-main);
-    backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover {
@@ -112,7 +111,6 @@ body {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 20px;
-    backdrop-filter: blur(14px);
     transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -201,32 +199,6 @@ body {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-top: 4px;
-}
-
-/* Features */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px;
-}
-
-.feature-box {
-    padding: 32px;
-}
-
-.feature-icon {
-    font-size: 2.2rem;
-    margin-bottom: 16px;
-}
-
-.feature-box h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-.feature-box p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
 }
 
 /* Pricing */
@@ -372,7 +344,6 @@ body {
     position: fixed;
     inset: 0;
     background: rgba(4, 8, 16, 0.75);
-    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;

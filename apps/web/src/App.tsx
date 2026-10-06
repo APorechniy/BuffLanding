@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Hero from "./components/Hero";
 import TrialModal from "./components/TrialModal";
-import Features from "./components/Features";
+import { Features } from "./components/Features";
 import { Locations } from "./components/Locations";
 import { Pricing } from "./components/Pricing";
 import Steps from "./components/Steps";

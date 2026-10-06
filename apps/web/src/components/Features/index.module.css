@@ -1,0 +1,24 @@
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.featureBox {
+    padding: 32px;
+}
+
+.featureIcon {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+}
+
+.featureBox h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.featureBox p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}

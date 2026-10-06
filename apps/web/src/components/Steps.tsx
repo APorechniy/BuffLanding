@@ -4,7 +4,7 @@ export default function Steps() {
     const { steps } = data;
 
     return (
-        <section id="steps" className="section">
+        <section id="steps">
             <div className="container">
                 <div className="section-header">
                     <h2 className="section-title">{steps.title}</h2>
