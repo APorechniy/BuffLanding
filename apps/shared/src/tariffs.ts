@@ -7,6 +7,7 @@ export interface Tariff {
     total_gb: number;
     devices: number;
     icon: string;
+    goalId: string;
     isTrial?: boolean;
     featured?: boolean;
     badge?: string;
@@ -24,6 +25,7 @@ export const TARIFFS: Record<string, Tariff> = {
         icon: "⚡",
         badge: "Free Trial",
         isTrial: true,
+        goalId: "free_24",
     },
     // "1": {
     //     id: "1",
@@ -45,6 +47,7 @@ export const TARIFFS: Record<string, Tariff> = {
         total_gb: 100,
         devices: 4,
         icon: "⚡",
+        goalId: "pay_1",
     },
     "60": {
         id: "60",
@@ -57,6 +60,7 @@ export const TARIFFS: Record<string, Tariff> = {
         icon: "💎",
         featured: true,
         badge: "Выгодно 🔥",
+        goalId: "pay_2",
     },
     "90": {
         id: "90",
@@ -68,5 +72,6 @@ export const TARIFFS: Record<string, Tariff> = {
         devices: 10,
         icon: "👑",
         badge: "Максимум",
+        goalId: "pay_3",
     },
 };

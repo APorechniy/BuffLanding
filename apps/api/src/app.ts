@@ -3,9 +3,12 @@ import cors from '@fastify/cors';
 import { trialRoutes } from './routes/trial.routes.js';
 import { paymentRoutes } from './routes/payment.routes.js';
 import { usersRouter } from './routes/users.routes.js';
+import { fastifyCookie } from '@fastify/cookie';
 
 export function buildApp() {
     const app = Fastify({ logger: true });
+
+    app.register(fastifyCookie);
 
     app.register(cors, { origin: '*' });
 

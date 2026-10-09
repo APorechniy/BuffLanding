@@ -29,7 +29,7 @@ services:
     restart: always
     ports:
       - "80:80"     # для редиректа на HTTPS
-      - "8443:8443"   # для HTTPS
+      - "443:443"   # для HTTPS
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro

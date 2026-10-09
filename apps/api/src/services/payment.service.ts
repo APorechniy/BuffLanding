@@ -16,6 +16,7 @@ export interface PaymentWebhookPayload {
     amount: number;
     status: "NEW" | "PROCESSING" | "PAID" | "EXPIRED" | "ERROR" | "REFUNDED"
     rawData: Record<string, any>;
+    ya_cid?: string;
 }
 
 // 1. Функция генерации HMAC сигнатуры
@@ -64,7 +65,7 @@ export class PaymentService {
     /**
      * Создание инвойса в шлюзе
      */
-    async createInvoice(orderId: string, amount: number, hookUrl: string): Promise<PaymentInvoice> {
+    async createInvoice(orderId: string, amount: number, hookUrl: string, ya_cid?: string): Promise<PaymentInvoice> {
         const url = `${this.baseUrl}/invoice/create`;
 
         const payload: Record<string, any> = {
@@ -73,6 +74,9 @@ export class PaymentService {
             order_id: orderId,
             comment: `Оплата Buff VPN (Заказ #${orderId})`,
             callback_url: hookUrl,
+            custom_fields: {
+                ya_cid: ya_cid
+            }
         };
 
         const signature = generateSignature(payload, this.apiKey);
@@ -193,6 +197,7 @@ export class PaymentService {
         const orderId = String(data.order_id);
         const amount = Number(data.amount || 0);
         const rawStatus = String(data.status || '').toUpperCase();
+        const ya_cid = String(data.custom_fields.ya_cid);
 
         const normalizedStatus: PaymentWebhookPayload["status"] = ["NEW", "PROCESSING", "PAID", "EXPIRED", "ERROR", "REFUNDED"].includes(rawStatus)
             ? rawStatus as PaymentWebhookPayload["status"]
@@ -203,6 +208,7 @@ export class PaymentService {
             amount,
             status: normalizedStatus,
             rawData: data,
+            ya_cid: ya_cid
         };
     }
 }

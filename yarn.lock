@@ -578,6 +578,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fastify/cookie@npm:^11.1.3":
+  version: 11.1.3
+  resolution: "@fastify/cookie@npm:11.1.3"
+  dependencies:
+    cookie: "npm:^2.0.0"
+    fastify-plugin: "npm:^6.0.0"
+  checksum: 10c0/e6ddcd3ded30f79f426be701fdbcc9035868136a196b0ace9606d6d4c77c7a55d4577628ee1333d00a3ea848bdf4f64a93402ca06e1b02146176b713552696fb
+  languageName: node
+  linkType: hard
+
 "@fastify/cors@npm:^9.0.1":
   version: 9.0.1
   resolution: "@fastify/cors@npm:9.0.1"
@@ -1161,6 +1171,7 @@ __metadata:
   resolution: "api@workspace:apps/api"
   dependencies:
     "@buffvpn/shared": "workspace:*"
+    "@fastify/cookie": "npm:^11.1.3"
     "@fastify/cors": "npm:^9.0.1"
     "@prisma/client": "npm:^5.22.0"
     "@types/node": "npm:^20.11.20"
@@ -1384,6 +1395,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "cookie@npm:2.0.1"
+  checksum: 10c0/dcf3bd6ec9d0f4f32be7575e23242866cb53be55fc3d4cf36215638596661cec1327a3b4ca286ba15eba8f2abd443e422b8c5f708af4ea9f75b4d3dedc67ee4c
+  languageName: node
+  linkType: hard
+
 "csstype@npm:^3.2.2":
   version: 3.2.3
   resolution: "csstype@npm:3.2.3"
@@ -1425,15 +1443,6 @@ __metadata:
   version: 16.6.1
   resolution: "dotenv@npm:16.6.1"
   checksum: 10c0/15ce56608326ea0d1d9414a5c8ee6dcf0fffc79d2c16422b4ac2268e7e2d76ff5a572d37ffe747c377de12005f14b3cc22361e79fc7f1061cce81f77d2c973dc
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^18.0.2":
-  version: 18.0.2
-  resolution: "dotenv@npm:18.0.2"
-  bin:
-    dotenv: dist/index.cjs
-  checksum: 10c0/c16e179205096a7028eea5fba2062dbd25e88d93a0beb66d219507d4585f63ec3f02fda755eee5dca790b7424391a39332830b19983003f0d8d449fbc6845424
   languageName: node
   linkType: hard
 
@@ -1717,6 +1726,13 @@ __metadata:
   version: 4.5.1
   resolution: "fastify-plugin@npm:4.5.1"
   checksum: 10c0/f58f79cd9d3c88fd7f79a3270276c6339fc57bbe72ef14d20b73779193c404e317ac18e8eae2c5071b3909ebee45d7eb6871da4e65464ac64ed0d9746b4e9b9f
+  languageName: node
+  linkType: hard
+
+"fastify-plugin@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "fastify-plugin@npm:6.0.0"
+  checksum: 10c0/4d9207efcbb0e6e8bd849eb8e00b097ae2d73590b1499f51d0bed135d08664e19d9428f2e8fc1a126b55ec4d2ac011dbcc72e753c255c46a751d6d34b57e5d4f
   languageName: node
   linkType: hard
 
@@ -2898,7 +2914,6 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.2.1"
     autoprefixer: "npm:^10.4.18"
     clsx: "npm:^2.1.0"
-    dotenv: "npm:^18.0.2"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-router: "npm:^8.4.0"

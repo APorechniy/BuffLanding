@@ -6,12 +6,14 @@ import { emailService } from '@/services/email.service';
 import { tgService } from '@/services/tg.service';
 import { TARIFFS, type Tariff } from '@buffvpn/shared';
 import { env } from '@/config/env';
+import { sendMetrikaGoal } from '@/utils/send-metrika-goal';
 
 const prisma = new PrismaClient();
 
 export async function paymentRoutes(fastify: FastifyInstance) {
     fastify.post('/api/payment/create', async (req: FastifyRequest, reply: FastifyReply) => {
         const { email, tariffId } = req.body as { email: string; tariffId: string };
+        const cid = req.cookies['_ym_uid'];
 
         const tariff: Tariff | undefined = TARIFFS[tariffId];
         if (!tariff) {
@@ -45,7 +47,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
             });
 
             const callbackUrl = `${env.PAYMENT_WEBHOOK_URL}/api/payment/webhook`;
-            const invoice = await paymentService.createInvoice(orderId, tariff.price, callbackUrl);
+            const invoice = await paymentService.createInvoice(orderId, tariff.price, callbackUrl, cid);
 
             return reply.send({
                 success: true,
@@ -100,6 +102,13 @@ export async function paymentRoutes(fastify: FastifyInstance) {
                     tariff: tariff,
                     clientEmail: user.email
                 })
+
+                if (webhookData.ya_cid) {
+                    await sendMetrikaGoal({
+                        cid: webhookData.ya_cid,
+                        goalId: tariff.goalId,
+                    })
+                }
             }
         }
 

@@ -48,7 +48,11 @@ const envSchema = z.object({
 
     // TG BOT
     BOT_TOKEN: z.string(),
-    SUPPORT_CHAT_ID: z.string()
+    SUPPORT_CHAT_ID: z.string(),
+
+    // YA_METRIKA
+    MP_TOKEN: z.string(),
+    COUNTER_ID: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
