@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { vpnService } from '../services/vpn.service.js';
 import { env } from '../config/env.js';
+import { sendMetrikaGoal } from '@/utils/send-metrika-goal.js';
 
 export async function trialRoutes(app: FastifyInstance) {
     app.post('/api/trial', async (request, reply) => {
@@ -11,6 +12,7 @@ export async function trialRoutes(app: FastifyInstance) {
                 return reply.code(403).send({ error: 'Forbidden' });
             }
 
+            const cid = request.cookies['_ym_uid'];
             const schema = z.object({ email: z.string().email() });
             const { email } = schema.parse(request.body);
 
@@ -22,6 +24,13 @@ export async function trialRoutes(app: FastifyInstance) {
                     status: result.status,
                     expiresAt: result.expiresAt,
                 });
+            }
+
+            if (cid) {
+                await sendMetrikaGoal({
+                    cid: cid,
+                    goalId: "free_24",
+                })
             }
 
             return {
